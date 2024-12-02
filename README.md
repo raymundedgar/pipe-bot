@@ -1,6 +1,6 @@
 # Pipe Network Guardian
 
-Pipe Network | The decentralized CDN redefining data delivery 🌍 | Faster bandwidth, lower latency ⚡ | Built on @Solana [https://pipecdn.app](https://pipecdn.app/signup?ref=bml1YWdyb0)
+Pipe Network | The decentralized CDN redefining data delivery 🌍 | Faster bandwidth, lower latency ⚡ | Built on @Solana [https://pipecdn.app](https://pipecdn.app/signup?ref=cmF5bXVuZH)
 Pipe Network is taking decentralized content delivery to the next level with a two-tier node system that ensures high performance and reliability. PoP Nodes and Guardian Nodes. 🖥️📊
 
 ## and what we running here is Guardian Nodes📊
@@ -41,18 +41,40 @@ With these insights, they can reroute traffic dynamically to avoid bottlenecks, 
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/Zlkcyber/pipe-bot.git
+   git clone https://github.com/raymundedgar/pipe-bot.git
    cd pipe-bot
    ```
 2. Install dependencies:
    ```bash
    npm install
    ```
-3. Run The Script: Make sure you already fill proxy in proxy.txt before start the bot
+3. [REQUIRED] Edit `account.json` file. `Ctrl + S` to save, then `Ctrl + X` to exit
+   ```bash
+   nano account.json
+   ```
+
+4. Add your email accounts with password (REQUIRED). It should be something like this
+   ```bash
+   [
+      {
+         "email" : "test1@gmail.com",
+         "password": "test1"
+      },
+      {
+         "email" : "test2@gmail.com",
+         "password": "test2"
+      }
+   ]
+   ```
+5. [OPTIONAL] Edit `proxy.txt` file in the format of `http://user:pass@ip:port`
+   ```bash
+   nano proxy.txt
+   ```
+6. Run The Script: Make sure you already fill proxy in proxy.txt before start the bot
    ```bash
    npm run start
    ```
-4. Follow the instructions in the terminal to complete the setup.
+7. Follow the instructions in the terminal to complete the setup.
    - choose 1 to register new account.
    - you need login after you register accounts to get your access token.
    - choose 2 to login to account.

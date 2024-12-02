@@ -22,7 +22,7 @@ const { logger } = require("./utils/logger");
             await loginWithAllAccounts();
             break;
         case "3":
-            logger(`Running All Accounts using Proxy...`)
+            logger(`Running All Accounts`)
             await sendHeartbeat();
             setInterval(sendHeartbeat, 5 * 60 * 1000); // Send heartbeat every 5 minutes
             await runNodeTests();

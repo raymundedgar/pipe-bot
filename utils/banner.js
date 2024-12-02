@@ -1,12 +1,13 @@
 
 const banner = `
-   ███████╗██╗     ██╗  ██╗     ██████╗██╗   ██╗██████╗ ███████╗██████╗ 
+   ███████╗██╗     ██╗  ██╗     ██████╗██╗   ██╗██████╗ ███████╗██████╗
    ╚══███╔╝██║     ██║ ██╔╝    ██╔════╝╚██╗ ██╔╝██╔══██╗██╔════╝██╔══██╗
      ███╔╝ ██║     █████╔╝     ██║      ╚████╔╝ ██████╔╝█████╗  ██████╔╝
     ███╔╝  ██║     ██╔═██╗     ██║       ╚██╔╝  ██╔══██╗██╔══╝  ██╔══██╗
    ███████╗███████╗██║  ██╗    ╚██████╗   ██║   ██████╔╝███████╗██║  ██║
    ╚══════╝╚══════╝╚═╝  ╚═╝     ╚═════╝   ╚═╝   ╚═════╝ ╚══════╝╚═╝  ╚═╝
-                Running Pipe Network Node BETA CLI Version                
-                   t.me/zlkcyber *** github.com/zlkcyber                   `
+                Running Pipe Network Node BETA CLI Version
+                   t.me/zlkcyber *** github.com/zlkcyber
+                    Modified by: https://t.me/degenkruu                   `
 
 module.exports = { banner };

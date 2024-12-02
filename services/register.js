@@ -10,7 +10,7 @@ const ACCOUNT_FILE = 'account.json';
 // Function to register a new user with a specific proxy
 async function registerUser(email, password, proxy) {
     try {
-        const agent = new HttpsProxyAgent(proxy); 
+        const agent = new HttpsProxyAgent(proxy);
         const response = await fetch(API_URL, {
         method: 'POST',
         headers: {
@@ -19,7 +19,7 @@ async function registerUser(email, password, proxy) {
         body: JSON.stringify({
             email: email,
             password: password,
-            referralCode: "bml1YWdyb0",
+            referralCode: "cmF5bXVuZH",
         }),
         agent,
         });
@@ -27,7 +27,7 @@ async function registerUser(email, password, proxy) {
         if (response.ok) {
         const data = await response.text();
         if (data) {
-            // Add user to the account.json 
+            // Add user to the account.json
             await addUserToFile(email, password);
             logger('Registration successful!', "success", data);
         } else {
@@ -46,7 +46,7 @@ async function registerUser(email, password, proxy) {
 function promptUserForCredentials() {
     const email = readlineSync.question('Enter your email: ');
     const password = readlineSync.question('Enter your password: ', {
-        hideEchoBack: true, 
+        hideEchoBack: true,
     });
     return { email, password };
 }
@@ -68,13 +68,8 @@ async function addUserToFile(email, password) {
 // Main function to execute registration
 async function register() {
     const { email, password } = promptUserForCredentials();
-    
-    const proxies = await loadProxies();
-    if (proxies.length === 0) {
-        logger("No proxies available. Please check your proxy.txt file.", "error");
-        return;
-    }
 
+    const proxies = await loadProxies();
     const randomProxy = proxies[Math.floor(Math.random() * proxies.length)];
     logger(`Using proxy: ${randomProxy}`);
 

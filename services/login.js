@@ -11,20 +11,23 @@ const ACCOUNT_FILE = 'account.json';
 async function readUsersFromFile() {
     try {
         const fileData = await fs.promises.readFile(ACCOUNT_FILE, 'utf8');
-        return JSON.parse(fileData); 
+        return JSON.parse(fileData);
     } catch (error) {
         logger('Error reading users from file','error', error);
-        return []; 
+        return [];
     }
     }
 async function login(email, password, proxy) {
-    const agent = new HttpsProxyAgent(proxy);
+    let agent = "";
+    if(proxy){
+        agent = new HttpsProxyAgent(proxy);
+    }
     try {
         const response = await fetch(`${API_BASE}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
-        agent, 
+        agent,
     });
 
     if (response.ok) {
@@ -32,7 +35,7 @@ async function login(email, password, proxy) {
         if (data.token) {
             await saveToken({ token: data.token, username: email });
             logger(`Login successful for ${email}!`, 'success');
-            
+
         } else {
             logger(`Login failed for ${email}! No token returned.`, 'error');
         }
@@ -52,11 +55,11 @@ async function loginWithAllAccounts() {
 
     for (let i = 0; i < accounts.length; i++) {
         const account = accounts[i];
-        const proxy = proxies[i % proxies.length];  
+        const proxy = proxies[i % proxies.length];
         logger(`Attempting to login with ${account.email}...`);
-        await login(account.email, account.password, proxy);  
+        await login(account.email, account.password, proxy);
     };
-    
+
 }
 
 module.exports = { loginWithAllAccounts };

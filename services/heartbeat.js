@@ -27,21 +27,19 @@ async function fetchPoints(token, username, agent) {
 
 // Function to send heartbeat
 async function sendHeartbeat() {
-    const proxies = await loadProxies(); 
-    if (proxies.length === 0) {
-        logger("No proxies available. Please check your proxy.txt file.", "error");
-        return;
-    }
-
-    const tokens = await readToken(); 
+    const proxies = await loadProxies();
+    const tokens = await readToken();
 
     for (let i = 0; i < tokens.length; i++) {
         const { token, username } = tokens[i];
-        const proxy = proxies[i % proxies.length]; 
-        const agent = new HttpsProxyAgent(proxy); 
+        const proxy = proxies[i % proxies.length];
+        let agent = "";
+        if(proxy){
+            agent = new HttpsProxyAgent(proxy);
+        }
 
         try {
-            const geoInfo = await fetchGeoLocation(agent); 
+            const geoInfo = await fetchGeoLocation(agent);
 
             const response = await fetch(`${API_BASE}/heartbeat`, {
                 method: "POST",
@@ -54,11 +52,12 @@ async function sendHeartbeat() {
                 location: geoInfo.location,
                 timestamp: Date.now(),
                 }),
-                agent, 
+                agent,
             });
 
             if (response.ok) {
-                logger(`Heartbeat sent successfully for ${username} using proxy: ${proxy}`, "success");
+                proxyMessage = proxy ? "using proxy: ${proxy}" : "";
+                logger(`Heartbeat sent successfully for ${username} ${proxyMessage}`, "success");
                 await fetchPoints(token, username, agent)
             } else {
                 logger(`Failed to send heartbeat for ${username}:`, "error", await response.text());

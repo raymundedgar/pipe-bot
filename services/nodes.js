@@ -9,22 +9,27 @@ const API_BASE = "https://api.pipecdn.app/api";
 // Main function to run node tests
 async function runNodeTests() {
     const proxies = await loadProxies();
-    if (proxies.length === 0) {
-        logger("No proxies available. Please check your proxy.txt file.", "error");
-        return;
-    }
 
     try {
-        const initialAgent = new HttpsProxyAgent(proxies[0 % proxies.length]); 
-        const response = await fetch(`${API_BASE}/nodes`, { agent: initialAgent });
-        const nodes = await response.json();
+        let response;
+        if(proxies.length){
+            const initialAgent = new HttpsProxyAgent(proxies[0 % proxies.length]);
+            response = await fetch(`${API_BASE}/nodes`, { agent: initialAgent });
+        }
+        else {
+            response = await fetch(`${API_BASE}/nodes`);
+        }
 
-        const tokens = await readToken(); 
+        const nodes = await response.json();
+        const tokens = await readToken();
 
         for (let i = 0; i < nodes.length; i++) {
             const node = nodes[i];
-            const proxy = proxies[i % proxies.length]; 
-            const agent = new HttpsProxyAgent(proxy);
+            const proxy = proxies[i % proxies.length];
+            let agent = "";
+            if(proxy){
+                agent = new HttpsProxyAgent(proxy);
+            }
 
             logger(`Testing node ${node.node_id} using proxy: ${proxy}`);
             const latency = await testNodeLatency(node, agent);
